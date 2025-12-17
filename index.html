@@ -165,6 +165,60 @@
         <div class="card">
             
             <div class="card-face card-front">
-                <img src="christmas_card.png" alt="Christmas Card Front">
+                <img src="christmas-card.png" alt="Christmas Card Front">
                 <div class="click-hint">Click to Open</div>
             </div>
+
+            <div class="card-face card-back">
+                
+                <div class="personal-message">
+Dear Mom,
+
+Wishing you a season filled with warmth, comfort, and good cheer. 
+I am so grateful for everything you do.
+
+Merry Christmas!
+
+Love,
+[Your Name]
+                </div>
+                <div class="decorative-line"></div>
+                
+                <div class="greeting-footer">
+                    God Bless You
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // 1. Flip Logic
+        const card = document.querySelector('.card');
+        card.addEventListener('click', function() {
+            card.classList.toggle('is-flipped');
+        });
+
+        // 2. Snow Logic
+        function createSnow() {
+            const snowContainer = document.getElementById('snow-container');
+            const particleCount = 50; // Number of snowflakes
+
+            for (let i = 0; i < particleCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.textContent = '❄';
+                snowflake.classList.add('snowflake');
+                
+                // Random positions and speeds
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+                snowflake.style.opacity = Math.random();
+                
+                snowContainer.appendChild(snowflake);
+            }
+        }
+        createSnow();
+    </script>
+</body>
+</html>

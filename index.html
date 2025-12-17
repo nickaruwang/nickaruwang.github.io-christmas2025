@@ -39,10 +39,15 @@
             to { transform: translateY(110vh); }
         }
 
-        /* The Scene Container */
+        /* --- UPDATED SCENE SIZE --- */
         .scene {
-            width: 350px;
-            height: 500px;
+            /* Responsive width: 90% of screen, but max 600px */
+            width: 90vw;
+            max-width: 600px;
+            /* Taller height */
+            height: 75vh;
+            max-height: 800px;
+            min-height: 600px;
             perspective: 1000px;
             cursor: pointer;
             z-index: 10;
@@ -74,7 +79,7 @@
             justify-content: center;
             align-items: center;
             border: 4px solid var(--card-gold);
-            padding: 20px;
+            padding: 30px; /* Increased padding */
             box-sizing: border-box;
         }
 
@@ -85,43 +90,44 @@
         }
 
         .star-container {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
             filter: drop-shadow(0 0 15px var(--card-gold));
         }
         
-        /* CSS Star of Bethlehem */
         .star {
-            font-size: 4rem;
+            font-size: 5rem; /* Larger star */
             color: var(--card-gold);
             animation: glow 2s infinite alternate;
         }
 
         .manger-scene {
-            font-size: 6rem;
+            font-size: 8rem; /* Larger cross */
             line-height: 1;
-            margin: 20px 0;
+            margin: 30px 0;
             filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
         }
 
         .title {
             font-family: 'Great Vibes', cursive;
-            font-size: 3.5rem;
+            font-size: 4.5rem; /* Larger title */
             margin: 0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+            text-align: center;
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             letter-spacing: 2px;
-            margin-top: 10px;
+            margin-top: 15px;
             opacity: 0.9;
+            text-align: center;
         }
 
         .click-hint {
             position: absolute;
-            bottom: 20px;
-            font-size: 0.8rem;
+            bottom: 25px;
+            font-size: 1rem;
             opacity: 0.7;
             font-style: italic;
         }
@@ -134,37 +140,57 @@
             text-align: center;
             background-image: radial-gradient(#e6dabf 1px, transparent 1px);
             background-size: 20px 20px;
+            justify-content: flex-start; /* Align content to top */
+            padding-top: 50px;
         }
 
         .verse {
             font-style: italic;
-            font-size: 1.1rem;
+            font-size: 1.3rem; /* Larger font */
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color: #333;
             border-top: 2px solid var(--card-gold);
             border-bottom: 2px solid var(--card-gold);
             padding: 20px 0;
+            width: 90%;
         }
 
         .reference {
             font-weight: bold;
-            font-size: 0.9rem;
-            margin-top: 10px;
+            font-size: 1rem;
+            margin-top: 15px;
             display: block;
             color: var(--card-red);
         }
 
+        /* --- NEW PERSONAL MESSAGE SECTION --- */
+        .personal-message {
+            font-family: 'Cinzel', serif;
+            color: var(--pine-green);
+            font-size: 1.4rem;
+            line-height: 1.5;
+            margin: 30px 0;
+            white-space: pre-wrap; /* Allows you to use line breaks in HTML */
+        }
+
         .greeting {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.5rem;
-            margin-top: 20px;
-            color: var(--pine-green);
+            font-size: 3rem;
+            margin-top: auto; /* Pushes greeting to bottom */
+            margin-bottom: 30px;
+            color: var(--card-red);
         }
 
         @keyframes glow {
             from { text-shadow: 0 0 10px #fff, 0 0 20px var(--card-gold); }
             to { text-shadow: 0 0 20px #fff, 0 0 30px var(--card-gold); }
+        }
+
+        /* Media query for very narrow phones */
+        @media (max-width: 400px) {
+            .title { font-size: 3.5rem; }
+            .manger-scene { font-size: 6rem; }
         }
 
     </style>
@@ -190,41 +216,42 @@
             <div class="card-face card-back">
                 <div class="verse">
                     "For unto us a Child is born,<br>
-                    Unto us a Son is given;<br>
-                    And the government will be<br>
-                    upon His shoulder."
+                    Unto us a Son is given..."
                     <span class="reference">— Isaiah 9:6</span>
                 </div>
-                <div class="greeting">
-                    Merry Christmas &<br>God Bless You
+
+                <div class="personal-message">
+Dear [Name],
+
+May God's peace be with you and your family during this holy season. Merry Christmas!
+
+Warmly,
+[Your Name]
+                </div>
+                 <div class="greeting">
+                    God Bless You
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Flip Logic
         const card = document.querySelector('.card');
         card.addEventListener('click', function() {
             card.classList.toggle('is-flipped');
         });
 
-        // Snow Generator
         function createSnow() {
             const snowContainer = document.getElementById('snow-container');
             const particleCount = 50;
-
             for (let i = 0; i < particleCount; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.textContent = '❄';
                 snowflake.classList.add('snowflake');
-                
-                // Randomize positions and speed
                 snowflake.style.left = Math.random() * 100 + 'vw';
                 snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
                 snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
                 snowflake.style.opacity = Math.random();
-                
                 snowContainer.appendChild(snowflake);
             }
         }

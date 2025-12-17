@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Christmas Greeting</title>
+    <title>Christmas Card</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #1a1f2c;
-            --card-red: #8b0000;
+            /* Dark background so the snow is visible */
+            --bg-color: #1a1f2c; 
             --card-gold: #d4af37;
             --text-cream: #f8f1e5;
             --pine-green: #2d5a27;
+            --card-red: #8b0000;
         }
 
         body {
@@ -25,7 +26,7 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Falling Snow Animation */
+        /* --- SNOW ANIMATION --- */
         .snowflake {
             position: absolute;
             top: -10px;
@@ -33,18 +34,18 @@
             opacity: 0.8;
             font-size: 1.2rem;
             animation: fall linear infinite;
+            z-index: 1; /* Behind the card but in front of background */
         }
 
         @keyframes fall {
             to { transform: translateY(110vh); }
         }
 
-        /* --- UPDATED SCENE SIZE --- */
+        /* --- SCENE & SIZE --- */
         .scene {
-            /* Responsive width: 90% of screen, but max 600px */
+            /* Large, responsive size (Portrait orientation) */
             width: 90vw;
             max-width: 600px;
-            /* Taller height */
             height: 75vh;
             max-height: 800px;
             min-height: 600px;
@@ -53,7 +54,7 @@
             z-index: 10;
         }
 
-        /* The Card Itself */
+        /* --- THE CARD --- */
         .card {
             width: 100%;
             height: 100%;
@@ -67,130 +68,91 @@
             transform: rotateY(180deg);
         }
 
-        /* Common Face Styles */
         .card-face {
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
             border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: 4px solid var(--card-gold);
-            padding: 30px; /* Increased padding */
-            box-sizing: border-box;
+            /* Common shadow for realism */
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1); 
+            overflow: hidden;
         }
 
-        /* --- FRONT OF CARD --- */
+        /* --- FRONT (IMAGE) --- */
         .card-front {
-            background: linear-gradient(135deg, #5e0000 0%, #8b0000 100%);
-            color: var(--card-gold);
+            background-color: #fff;
+            transform: rotateY(0deg);
         }
 
-        .star-container {
-            margin-bottom: 40px;
-            text-align: center;
-            filter: drop-shadow(0 0 15px var(--card-gold));
-        }
-        
-        .star {
-            font-size: 5rem; /* Larger star */
-            color: var(--card-gold);
-            animation: glow 2s infinite alternate;
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            /* 'cover' ensures the image fills the card without stretching.
+               It might crop edges. If you want the WHOLE image visible, 
+               change 'cover' to 'contain' (but you might see white bars). */
+            object-fit: cover; 
+            border-radius: 15px;
         }
 
-        .manger-scene {
-            font-size: 8rem; /* Larger cross */
-            line-height: 1;
-            margin: 30px 0;
-            filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
-        }
-
-        .title {
-            font-family: 'Great Vibes', cursive;
-            font-size: 4.5rem; /* Larger title */
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-            text-align: center;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            margin-top: 15px;
-            opacity: 0.9;
-            text-align: center;
-        }
-
+        /* Hint text on top of the image */
         .click-hint {
             position: absolute;
-            bottom: 25px;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 1rem;
-            opacity: 0.7;
-            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            pointer-events: none;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
         }
 
-        /* --- BACK OF CARD --- */
+        /* --- BACK (TEXT) --- */
         .card-back {
             background-color: var(--text-cream);
-            color: var(--card-red);
             transform: rotateY(180deg);
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            border: 4px solid var(--card-gold);
+            
+            /* Paper texture pattern */
             background-image: radial-gradient(#e6dabf 1px, transparent 1px);
             background-size: 20px 20px;
-            justify-content: flex-start; /* Align content to top */
-            padding-top: 50px;
+            color: var(--pine-green);
         }
 
-        .verse {
-            font-style: italic;
-            font-size: 1.3rem; /* Larger font */
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #333;
-            border-top: 2px solid var(--card-gold);
-            border-bottom: 2px solid var(--card-gold);
-            padding: 20px 0;
-            width: 90%;
-        }
-
-        .reference {
-            font-weight: bold;
-            font-size: 1rem;
-            margin-top: 15px;
-            display: block;
-            color: var(--card-red);
-        }
-
-        /* --- NEW PERSONAL MESSAGE SECTION --- */
         .personal-message {
             font-family: 'Cinzel', serif;
-            color: var(--pine-green);
-            font-size: 1.4rem;
-            line-height: 1.5;
-            margin: 30px 0;
-            white-space: pre-wrap; /* Allows you to use line breaks in HTML */
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-top: 20px;
+            white-space: pre-wrap; /* Keeps your paragraphs/formatting */
+            width: 100%;
+            text-align: left; /* Or center, if you prefer */
         }
 
-        .greeting {
+        .greeting-footer {
             font-family: 'Great Vibes', cursive;
             font-size: 3rem;
-            margin-top: auto; /* Pushes greeting to bottom */
-            margin-bottom: 30px;
             color: var(--card-red);
+            margin-top: auto; /* Pushes this to the bottom */
+            text-align: center;
         }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 10px #fff, 0 0 20px var(--card-gold); }
-            to { text-shadow: 0 0 20px #fff, 0 0 30px var(--card-gold); }
-        }
-
-        /* Media query for very narrow phones */
-        @media (max-width: 400px) {
-            .title { font-size: 3.5rem; }
-            .manger-scene { font-size: 6rem; }
+        .decorative-line {
+            width: 50%;
+            height: 2px;
+            background-color: var(--card-gold);
+            margin: 20px 0;
         }
 
     </style>
@@ -201,61 +163,8 @@
 
     <div class="scene">
         <div class="card">
+            
             <div class="card-face card-front">
-                <div class="star-container">
-                    <div class="star">✦</div>
-                </div>
-                <div class="manger-scene">
-                    ✝
-                </div>
-                <h1 class="title">Joy to the World</h1>
-                <div class="subtitle">THE LORD IS COME</div>
-                <div class="click-hint">(Click to Open)</div>
+                <img src="christmas_card.png" alt="Christmas Card Front">
+                <div class="click-hint">Click to Open</div>
             </div>
-
-            <div class="card-face card-back">
-                <div class="verse">
-                    "For unto us a Child is born,<br>
-                    Unto us a Son is given..."
-                    <span class="reference">— Isaiah 9:6</span>
-                </div>
-
-                <div class="personal-message">
-Dear [Name],
-
-May God's peace be with you and your family during this holy season. Merry Christmas!
-
-Warmly,
-[Your Name]
-                </div>
-                 <div class="greeting">
-                    God Bless You
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const card = document.querySelector('.card');
-        card.addEventListener('click', function() {
-            card.classList.toggle('is-flipped');
-        });
-
-        function createSnow() {
-            const snowContainer = document.getElementById('snow-container');
-            const particleCount = 50;
-            for (let i = 0; i < particleCount; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.textContent = '❄';
-                snowflake.classList.add('snowflake');
-                snowflake.style.left = Math.random() * 100 + 'vw';
-                snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
-                snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
-                snowflake.style.opacity = Math.random();
-                snowContainer.appendChild(snowflake);
-            }
-        }
-        createSnow();
-    </script>
-</body>
-</html>
